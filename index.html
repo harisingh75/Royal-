@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Mithila Food Palace | Taste the Heritage</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --crimson: #990000;
+            --gold: #D4AF37;
+            --light-gold: #fcf4d9;
+            --ivory: #FFFFF0;
+            --dark: #1a1a1a;
+            --mithila-pattern: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M20 0L40 20L20 40L0 20Z" fill="none" stroke="%23D4AF37" stroke-width="1"/></svg>');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--ivory);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .royal-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            object-fit: cover;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--crimson);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        /* Page Management */
+        .page {
+            display: none;
+            padding-top: 100px;
+            min-height: 100vh;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .active-page {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero Section */
+        #home {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-tagline {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        /* Decorative Borders */
+        .mithila-border {
+            height: 20px;
+            background-image: var(--mithila-pattern);
+            background-repeat: repeat-x;
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: white;
+        }
+
+        .btn-gold:hover {
+            background: #b8962d;
+            transform: scale(1.05);
+        }
+
+        /* Menu Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 40px 5%;
+        }
+
+        .menu-card {
+            background: white;
+            border: 1px solid var(--light-gold);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .menu-card:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .menu-img {
+            height: 200px;
+            background: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--gold);
+        }
+
+        .menu-info {
+            padding: 20px;
+        }
+
+        /* Booking Form */
+        .booking-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-top: 5px solid var(--gold);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--crimson);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 50px 5% 20px;
+            margin-top: 50px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--crimson);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            z-index: 1001;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.5rem; }
+            .nav-links { display: none; } /* Simplified for mobile example */
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo-container">
+            <img src="https://i.ibb.co/V0RV7CDZ/FB-IMG-1773917851962.jpg" alt="Logo" class="logo-img">
+            <span class="royal-font" style="color: var(--crimson); font-size: 1.2rem; font-weight: 900;">ROYAL MITHILA</span>
+        </div>
+        <ul class="nav-links">
+            <li><a onclick="showPage('home')">Home</a></li>
+            <li><a onclick="showPage('about')">About Us</a></li>
+            <li><a onclick="showPage('menu')">Menu</a></li>
+            <li><a onclick="showPage('booking')">Booking & Delivery</a></li>
+            <li><a onclick="showPage('reviews')">Reviews</a></li>
+            <li><a onclick="showPage('contact')">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <div id="home" class="page active-page">
+        <div class="hero-content">
+            <h1>Royal Mithila Food Palace</h1>
+            <p class="hero-tagline">"Taste the Royal Flavors of Mithila"</p>
+            <div class="mithila-border"></div>
+            <p style="max-width: 600px; margin: 0 auto 30px;">
+                Royal Mithila Food Palace is a multi-cuisine restaurant where we serve Indian, Nepali, Chinese, Italian, and Continental foods with a fusion of local taste.
+            </p>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <button class="btn btn-gold" onclick="showPage('menu')">Explore Menu</button>
+                <button class="btn btn-gold" style="background: var(--crimson);" onclick="showPage('booking')">Order Now</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="about" class="page">
+        <div style="max-width: 1000px; margin: 0 auto; padding: 40px 20px; text-align: center;">
+            <h2 style="color: var(--crimson); font-size: 2.5rem;">Our Story</h2>
+            <div class="mithila-border"></div>
+            <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center; margin-top: 30px;">
+                <div style="flex: 1; min-width: 300px;">
+                    <img src="https://i.ibb.co/V0RV7CDZ/FB-IMG-1773917851962.jpg" style="width: 100%; border-radius: 20px; border: 10px solid var(--light-gold);">
+                </div>
+                <div style="flex: 1; min-width: 300px; text-align: left;">
+                    <p style="line-height: 1.8; margin-bottom: 20px;">
+                        Inspired by the rich heritage of the Mithila region, we bring you a dining experience that is both royal and authentic. Our chefs specialize in blending traditional spices with modern culinary techniques.
+                    </p>
+                    <p style="line-height: 1.8;">
+                        Whether it's the crunch of a perfect Samosa or the delicate flavors of Italian pasta, every dish at Royal Mithila is prepared with the finest ingredients and a touch of Madhubani elegance.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="menu" class="page">
+        <h2 style="text-align: center; color: var(--crimson); font-size: 2.5rem;">The Royal Menu</h2>
+        <div class="mithila-border"></div>
+        <div class="menu-grid">
+            <div class="menu-card">
+                <div class="menu-img"><i class="fas fa-hotdog"></i></div>
+                <div class="menu-info">
+                    <h3>Mithila Special Momo</h3>
+                    <p>Fusion steam dumplings with local spicy chutney.</p>
+                    <p style="color: var(--crimson); font-weight: bold; margin-top: 10px;">Rs. 150</p>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-img"><i class="fas fa-pepper-hot"></i></div>
+                <div class="menu-info">
+                    <h3>Royal Dahi Puri</h3>
+                    <p>Crispy puris filled with tangy yogurt and Mithila spices.</p>
+                    <p style="color: var(--crimson); font-weight: bold; margin-top: 10px;">Rs. 120</p>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-img"><i class="fas fa-pizza-slice"></i></div>
+                <div class="menu-info">
+                    <h3>Fusion Italian Pizza</h3>
+                    <p>Hand-tossed pizza with a hint of local masalas.</p>
+                    <p style="color: var(--crimson); font-weight: bold; margin-top: 10px;">Rs. 450</p>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-img"><i class="fas fa-glass-whiskey"></i></div>
+                <div class="menu-info">
+                    <h3>Janakpuri Lassi</h3>
+                    <p>Rich, creamy yogurt drink topped with nuts.</p>
+                    <p style="color: var(--crimson); font-weight: bold; margin-top: 10px;">Rs. 80</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="booking" class="page">
+        <div class="booking-container">
+            <h2 style="text-align: center; color: var(--crimson); margin-bottom: 20px;">Reserve a Table or Order Delivery</h2>
+            <p style="text-align: center; margin-bottom: 30px;">Your request will be sent directly to our staff via WhatsApp & Email.</p>
+            
+            <form id="orderForm">
+                <div class="form-group">
+                    <label>Order Type</label>
+                    <select id="type" required>
+                        <option value="Home Delivery">Home Delivery</option>
+                        <option value="Table Booking">Table Booking</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" id="name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label>Items / No. of People</label>
+                    <textarea id="details" rows="3" placeholder="What would you like to eat or how many guests?" required></textarea>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <button type="button" onclick="sendWhatsApp()" class="btn" style="background: #25D366; color: white;">
+                        <i class="fab fa-whatsapp"></i> Order on WhatsApp
+                    </button>
+                    <button type="button" onclick="sendEmail()" class="btn" style="background: var(--crimson); color: white;">
+                        <i class="fas fa-envelope"></i> Order via Email
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="reviews" class="page">
+        <h2 style="text-align: center; color: var(--crimson); font-size: 2.5rem;">Guest Experiences</h2>
+        <div class="mithila-border"></div>
+        <div class="menu-grid">
+            <div class="menu-card" style="padding: 20px;">
+                <p>"Best Momo in Janakpur! The fusion taste is unique."</p>
+                <h4 style="margin-top: 15px; color: var(--gold);">- Rajesh Kumar</h4>
+            </div>
+            <div class="menu-card" style="padding: 20px;">
+                <p>"The royal ambiance and the Madhubani art themes are beautiful."</p>
+                <h4 style="margin-top: 15px; color: var(--gold);">- Sunita Maithil</h4>
+            </div>
+        </div>
+    </div>
+
+    <div id="contact" class="page">
+        <div style="max-width: 1000px; margin: 0 auto; padding: 0 20px;">
+            <h2 style="text-align: center; color: var(--crimson); font-size: 2.5rem;">Visit the Palace</h2>
+            <div class="mithila-border"></div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 30px;">
+                <div>
+                    <h3 style="color: var(--crimson); margin-bottom: 15px;">Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Pidari Chawk Bus Stop, Janakpur Dham</p>
+                    <p><i class="fas fa-building"></i> Located in: Mehta Trading Concern</p>
+                    <p><i class="fas fa-phone"></i> <a href="tel:041590620" style="color: inherit;">041-590620</a></p>
+                    <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/9779828795797" style="color: inherit;">+977 9828795797</a></p>
+                    <p><i class="fas fa-envelope"></i> harpk9890@gmail.com</p>
+                </div>
+                <div>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3565.3458692794!2d85.9220!3d26.7288!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDQzJzQzLjciTiA4NcKwNTUnMTkuMiJF!5e0!3m2!1sen!2snp!4v1620000000000" width="100%" height="250" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h3 style="color: var(--gold); margin-bottom: 15px;">Royal Mithila</h3>
+                <p>Bringing the taste of heritage to your plate. Authentic fusion cuisine in the heart of Janakpur.</p>
+            </div>
+            <div>
+                <h3 style="color: var(--gold); margin-bottom: 15px;">Quick Links</h3>
+                <p><a onclick="showPage('menu')" style="cursor:pointer">Our Menu</a></p>
+                <p><a onclick="showPage('booking')" style="cursor:pointer">Book Table</a></p>
+                <p><a onclick="showPage('contact')" style="cursor:pointer">Find Us</a></p>
+            </div>
+            <div>
+                <h3 style="color: var(--gold); margin-bottom: 15px;">Follow Us</h3>
+                <div style="display: flex; gap: 15px; font-size: 1.5rem;">
+                    <i class="fab fa-facebook"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-tiktok"></i>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 40px; border-top: 1px solid #444; padding-top: 20px; font-size: 0.8rem;">
+            &copy; 2024 Royal Mithila Food Palace. All Rights Reserved.
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top"><i class="fas fa-chevron-up"></i></a>
+
+    <script>
+        // Page Navigation Logic
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active-page'));
+            
+            // Show requested page
+            document.getElementById(pageId).classList.add('active-page');
+            
+            // Scroll to top
+            window.scrollTo(0,0);
+        }
+
+        // WhatsApp Messaging
+        function sendWhatsApp() {
+            const type = document.getElementById('type').value;
+            const name = document.getElementById('name').value;
+            const details = document.getElementById('details').value;
+            
+            if(!name || !details) { alert('Please fill all fields'); return; }
+
+            const message = `Hello Royal Mithila! %0A*New ${type} Request*%0AName: ${name}%0ADetails: ${details}`;
+            window.open(`https://wa.me/9779828795797?text=${message}`, '_blank');
+        }
+
+        // Email Messaging
+        function sendEmail() {
+            const type = document.getElementById('type').value;
+            const name = document.getElementById('name').value;
+            const details = document.getElementById('details').value;
+            
+            if(!name || !details) { alert('Please fill all fields'); return; }
+
+            const subject = `New ${type} - ${name}`;
+            const body = `Order Details: ${details}`;
+            window.location.href = `mailto:harpk9890@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+
+        // Smooth Scroll for Back to Top
+        document.querySelector('.back-to-top').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
